@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+import '../../core/theme/app_colors.dart';
+
+class SectionHeader extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final String? actionText;
+  final VoidCallback? onActionTap;
+
+  const SectionHeader({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.actionText = 'See All',
+    this.onActionTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: context.textPrimaryColor,
+                    letterSpacing: -0.3,
+                  ),
+                ),
+                if (subtitle != null) ...[
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle!,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: context.textSecondaryColor,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          if (onActionTap != null)
+            GestureDetector(
+              onTap: onActionTap,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    actionText ?? 'See All',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: context.themeAccent,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 14,
+                    color: context.themeAccent,
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
